@@ -1,12 +1,16 @@
 window.addEventListener('DOMContentLoaded',()=>{
     console.log('Loaded');
-    const arr = Array(45).fill().map(()=> Math.ceil(20*Math.random()));
+    const arr = Array(60).fill().map(()=> Math.ceil(20*Math.random()));
     console.log(arr);
     const root = document.getElementById('root');
     let flag = 0;
     let ctr=0;
     let hasSwapped = true;
     let size = arr.length-1;
+    const screen = window.screen.width;
+    if(screen < 750){
+        arr.splice(0,30);
+    }
 
     for(let i=0;i < arr.length; ++i){
         const div = document.createElement('div');
