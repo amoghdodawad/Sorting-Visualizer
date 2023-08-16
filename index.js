@@ -9,12 +9,9 @@ window.addEventListener('DOMContentLoaded',()=>{
     let size = arr.length-1;
 
     for(let i=0;i < arr.length; ++i){
-        // const node = document.createTextNode(' ' + arr[i] + ' ');
         const div = document.createElement('div');
         div.classList.add('card')
         div.style.height = arr[i]+'rem';
-        div.style.width = '0.5rem';
-        // div.appendChild(node);
         root.appendChild(div);
     }
 

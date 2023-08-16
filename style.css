@@ -8,15 +8,28 @@
     align-items: end;
 }
 
+@media screen and (max-width : 800px) {
+    .card{
+        margin-left: 0.01rem;
+        margin-right: 0.01rem;
+        padding: 0.2rem;
+        width: 0.2rem;
+        background-color: rgb(250, 32, 93);
+        display: flex;
+        justify-content: center;
+        align-items: end;
+    }
+}
+
 .card {
     margin-left: 0.1rem;
     margin-right: 0.1rem;
     padding: 0.2rem;
+    width: 0.5rem;
     background-color: rgb(250, 32, 93);
     display: flex;
     justify-content: center;
     align-items: end;
-    color: azure;
 }
 
 #input-container {
