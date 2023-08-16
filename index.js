@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded',()=>{
     console.log('Loaded');
-    const arr = Array(50).fill().map(()=> Math.ceil(20*Math.random()));
+    const arr = Array(45).fill().map(()=> Math.ceil(20*Math.random()));
     console.log(arr);
     const root = document.getElementById('root');
     let flag = 0;
