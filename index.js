@@ -10,6 +10,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     const screen = window.screen.width;
     if(screen < 750){
         arr.splice(0,30);
+        size = arr.length-1;
     }
 
     for(let i=0;i < arr.length; ++i){
