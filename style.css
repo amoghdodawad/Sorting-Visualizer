@@ -1,0 +1,16 @@
+#root{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.card {
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+    padding: 0.2rem;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    color: azure;
+}
