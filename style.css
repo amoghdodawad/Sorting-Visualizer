@@ -11,12 +11,14 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 #root{
     display: flex;
     justify-content: center;
     align-items: end;
+    padding: 1rem;
     margin: 2rem;
 }
 
