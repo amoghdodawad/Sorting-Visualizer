@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded',()=>{
-
+    console.log('Loaded');
     const arr = Array(60).fill().map(()=> Math.ceil(20*Math.random()));
     console.log(arr);
     
@@ -25,6 +25,8 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     let cards = document.getElementsByClassName('card');
     const bubbleSort = document.getElementById('bubble-sort');
+    const selectionSort = document.getElementById('selection-sort');
+    const insertionSort = document.getElementById('insertion-sort');
     const mergeSort = document.getElementById('merge-sort');
     const quickSort = document.getElementById('quick-sort');
     const heapSort = document.getElementById('heap-sort');
@@ -32,6 +34,8 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     function disableInput(){
         bubbleSort.disabled = true;
+        selectionSort.disabled = true;
+        insertionSort.disabled = true;
         mergeSort.disabled = true;
         quickSort.disabled = true;
         heapSort.disabled = true;
@@ -40,6 +44,8 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     function enableInput(){
         bubbleSort.disabled = false;
+        selectionSort.disabled = false;
+        insertionSort.disabled = false;
         mergeSort.disabled = false;
         quickSort.disabled = false;
         heapSort.disabled = false;
@@ -100,6 +106,101 @@ window.addEventListener('DOMContentLoaded',()=>{
         },delay*ctr)
         console.log(arr);
     });
+
+    selectionSort.addEventListener('click',()=>{
+        disableInput();
+        ctr = 0;
+        function selectionSort(arr, n){
+            for(let i=0;i<n-1;++i){
+                let minIndex = i;
+                for(let j=i+1;j<n;++j){
+                    if(arr[j] < arr[minIndex]){
+                        minIndex = j;
+                    }
+                }
+                if(minIndex != i){
+                    ++ctr;
+                    const iHeight = arr[i];
+                    const minHeight = arr[minIndex];
+                    setTimeout(()=>{
+                        cards[minIndex].style.backgroundColor = 'blue';
+                        cards[i].style.backgroundColor = 'blue';
+                        cards[minIndex].style.height = iHeight+'rem';
+                        cards[i].style.height = minHeight+'rem';
+                        setTimeout(()=>{
+                            cards[minIndex].style.backgroundColor = 'rgb(250, 32, 93)';
+                            cards[i].style.backgroundColor = 'green';
+                            for(let x = i-1; x >= 0; --x){
+                                if(cards[x].style.backgroundColor === 'green'){
+                                    break;
+                                }
+                                cards[x].style.backgroundColor = 'green';
+                            }
+                        },Math.floor(delay/2))
+                    },delay*ctr)
+                    
+                    const temp = arr[i];
+                    arr[i] = arr[minIndex];
+                    arr[minIndex] = temp;
+                }
+                
+            }
+        }
+        selectionSort(arr,arr.length);
+        console.log(arr);
+        ++ctr;
+        setTimeout(()=>{
+            for(let i=arr.length-1; i >= 0; --i){
+                if(cards[i].style.backgroundColor === 'green'){
+                    break;
+                }
+                cards[i].style.backgroundColor = 'green';
+            }
+            enableInput();
+        },delay*ctr)
+    })
+
+    insertionSort.addEventListener('click',()=>{
+        disableInput();
+        ctr = 0;
+        function insertionSort(arr,n){
+            for(let i=1; i < n; ++i){
+                const key = arr[i];
+                let j = i-1;
+                while(j >= 0 && arr[j] > key){
+                    ++ctr;
+                    const tempJ = j
+                    const jHeight = arr[tempJ];
+                    setTimeout(()=>{
+                        cards[tempJ+1].style.backgroundColor = 'blue';
+                        cards[tempJ+1].style.height = jHeight+'rem';
+                        setTimeout(()=>{
+                            cards[tempJ+1].style.backgroundColor = 'rgb(250, 32, 93)';
+                        },Math.floor(delay/2))
+                    },delay*ctr)
+                    arr[j+1] = arr[j];
+                    j = j-1;
+                }
+                ++ctr;
+                setTimeout(()=>{
+                    cards[j+1].style.height = key+'rem';
+                    // cards[j+1].style.backgroundColor = 'green';
+                },delay*ctr);
+                arr[j+1] = key;
+            }
+        }
+        insertionSort(arr,arr.length);
+        ++ctr;
+        setTimeout(()=>{
+            for(let i=0;i<arr.length;++i){
+                cards[i].style.backgroundColor = 'green';
+            }
+        },delay*ctr)
+        console.log(arr);
+        setTimeout(()=>{
+            enableInput();
+        },200)
+    })
     
     mergeSort.addEventListener('click',()=>{
         ctr = 0;
