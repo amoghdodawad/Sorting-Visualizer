@@ -29,6 +29,22 @@ window.addEventListener('DOMContentLoaded',()=>{
     const quickSort = document.getElementById('quick-sort');
     const heapSort = document.getElementById('heap-sort');
     const delayHandler = document.getElementById('delay-handler');
+
+    function disableInput(){
+        bubbleSort.disabled = true;
+        mergeSort.disabled = true;
+        quickSort.disabled = true;
+        heapSort.disabled = true;
+        delayHandler.disabled = true;
+    }
+
+    function enableInput(){
+        bubbleSort.disabled = false;
+        mergeSort.disabled = false;
+        quickSort.disabled = false;
+        heapSort.disabled = false;
+        delayHandler.disabled = false;
+    }
     
     delayHandler.addEventListener('change',(event)=>{
         console.log(event.target.value);
@@ -37,33 +53,32 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     bubbleSort.addEventListener('click',()=>{
         ctr = 0;
+        disableInput();
         for(let i=0;i<arr.length-1;++i){
             hasSwapped = false;
             for(let j=0;j<arr.length-i-1;++j){
-                if(arr[j] > arr[j+1]){
+                if(arr[j] >= arr[j+1]){
                     hasSwapped = true;
                     let x = j
                     ++flag;
                     setTimeout(()=>{
                         cards[j].style.backgroundColor = cards[j+1].style.backgroundColor = 'rgb(32, 72, 250)';
                         cards[j].before(cards[j+1]);
-                        cards[j].id = j;
-                        cards[j+1].id = j+1;
                         setTimeout(()=>{
                             cards[j].style.backgroundColor = cards[j+1].style.backgroundColor = 'rgb(250, 32, 93)';
                             if(j == arr.length-i-2){
                                 cards[size].style.backgroundColor = 'green'
                                 --size;
                             }
-                            for(x=0;x<i;++x){
-                                cards[arr.length-x-1].style.backgroundColor = 'green';
-                            }
+                            // for(x=0;x<i;++x){
+                            //     cards[arr.length-x-1].style.backgroundColor = 'green';
+                            // }
                             --flag;
                             if(!flag){
                                 for(let x = 0;x<arr.length;++x){
-                                    // if(cards[x].style.backgroundColor = 'green'){
-                                    //     break;
-                                    // }
+                                    if(cards[x].style.backgroundColor === 'green'){
+                                        break;
+                                    }
                                     cards[x].style.backgroundColor = 'green';
                                 }
                             }
@@ -79,12 +94,17 @@ window.addEventListener('DOMContentLoaded',()=>{
                 break;
             }
         }
+        ++ctr;
+        setTimeout(()=>{
+            enableInput();
+        },delay*ctr)
         console.log(arr);
     });
     
     mergeSort.addEventListener('click',()=>{
         ctr = 0;
         level = 0;
+        disableInput();
         function merge_Arrays(arr,left,middle,right) {
             const n1 = middle-left+1;
             const n2 = right-middle;
@@ -127,12 +147,6 @@ window.addEventListener('DOMContentLoaded',()=>{
                     cards[x].style.backgroundColor = `rgb(0,${100+col*15},0)`;
                     cards[x].style.height = height+'rem';
                     cards[last].style.backgroundColor = 'blue';
-                    // setTimeout(()=>{
-                    //     cards[x].style.backgroundColor = 'rgb(250, 32, 93)';
-                    // },25);
-                    // setTimeout(()=>{
-                    //     cards[last].style.backgroundColor = 'rgb(250, 32, 93)';
-                    // },50*(k-i))
                 },delay*ctr)
             }
         }
@@ -148,7 +162,8 @@ window.addEventListener('DOMContentLoaded',()=>{
                 if(level === 0){
                     ++ctr;
                     setTimeout(()=>{
-                        cards[cards.length-1].style.backgroundColor = `rgb(0,100,0)`
+                        cards[cards.length-1].style.backgroundColor = `rgb(0,100,0)`;
+                        enableInput();
                     },delay*ctr);
                 }
             }
@@ -161,6 +176,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     quickSort.addEventListener('click',()=>{
         ctr = 0;
         level = 0;
+        disableInput();
         function partition(arr,low,high){
             const pivot = arr[high];
             let i = low-1;
@@ -228,6 +244,12 @@ window.addEventListener('DOMContentLoaded',()=>{
                     cards[partitionIndex].style.backgroundColor = 'rgb(250, 32, 93)';
                 },delay*ctr);
                 --level;
+                if(level === 0){
+                    ++ctr;
+                    setTimeout(()=>{
+                        enableInput();
+                    },delay*ctr)
+                }
             }
             
         }
@@ -238,6 +260,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     heapSort.addEventListener('click',()=>{
         ctr = 0;
         arr.push(-1);
+        disableInput();
         function heapify(arr, n , i){
             let largest = i;
             let leftChild = 2*i+1;
@@ -294,6 +317,12 @@ window.addEventListener('DOMContentLoaded',()=>{
                 arr[0] = arr[i]; 
                 arr[i] = temp;
                 heapify(arr, i, 0);
+                if(i === 0){
+                    ++ctr;
+                    setTimeout(()=>{
+                        enableInput();
+                    },delay*ctr)
+                }
             }
         }
         for(let i=arr.length/2-1;i >= 0; --i){

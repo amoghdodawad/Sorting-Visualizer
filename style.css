@@ -18,8 +18,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: end;
-    padding: 1rem;
-    margin: 2rem;
+    margin: 1rem;
 }
 
 #delay-container {
@@ -40,21 +39,36 @@ body {
 }
 
 #delay-handler {
-    width: 30vw;;
+    width: 30vw;
 }
 
-.card {
-    margin-left: 0.1rem;
-    margin-right: 0.1rem;
-    padding: 0.2rem;
-    width: 0.5rem;
-    background-color: rgb(250, 32, 93);
-    display: flex;
-    justify-content: center;
-    align-items: end;
+@media screen and (min-width : 801px) {
+    .card {
+        margin-left: 0.1rem;
+        margin-right: 0.1rem;
+        padding: 0.2rem;
+        width: 0.5rem;
+        background-color: rgb(250, 32, 93);
+        display: flex;
+        justify-content: center;
+        align-items: end;
+    }
 }
 
-#input-container {
+@media screen and (max-width : 800px) {
+    .card {
+        margin-left: 0.1rem;
+        margin-right: 0.1rem;
+        padding: 0.1rem;
+        width: 0.3rem;
+        background-color: rgb(250, 32, 93);
+        display: flex;
+        justify-content: center;
+        align-items: end;
+    }
+}
+
+#algo-container {
     display: flex;
     margin-top: 2rem;
     flex-wrap: wrap;
@@ -63,20 +77,21 @@ body {
     justify-content: space-between;
 }
 
-#input-container > input {
+#algo-container > input {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgb(255, 230, 207);
-    margin: 2rem;
+    margin: 0.5rem;
     border: 0;
     padding: 0.35rem;
     border-radius: 0.3rem;
     font-weight: bold;
     box-shadow: 0.1rem 0.1rem rgba(0,0,0,0.05);
+    min-width: 6.5rem;
 }
 
-#input-container > input:hover{
+#algo-container > input:hover{
     background-color: rgb(249, 227, 199);
     font-weight: bolder;
     cursor: pointer;
