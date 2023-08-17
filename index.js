@@ -195,11 +195,9 @@ window.addEventListener('DOMContentLoaded',()=>{
             for(let i=0;i<arr.length;++i){
                 cards[i].style.backgroundColor = 'green';
             }
+            enableInput();
         },delay*ctr)
         console.log(arr);
-        setTimeout(()=>{
-            enableInput();
-        },200)
     })
     
     mergeSort.addEventListener('click',()=>{
