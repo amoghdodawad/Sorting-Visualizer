@@ -285,14 +285,16 @@ window.addEventListener('DOMContentLoaded',()=>{
                     ++ctr;
                     const iHeight = arr[i];
                     const jHeight = arr[j];
+                    const tempI = i;
+                    const tempJ = j;
                     setTimeout(()=>{
-                        cards[i].style.height = jHeight+'rem';
-                        cards[j].style.height = iHeight+'rem';
-                        cards[i].style.backgroundColor = 'blue';
-                        cards[j].style.backgroundColor = 'blue';
+                        cards[tempI].style.height = jHeight+'rem';
+                        cards[tempJ].style.height = iHeight+'rem';
+                        cards[tempI].style.backgroundColor = 'blue';
+                        cards[tempJ].style.backgroundColor = 'blue';
                         setTimeout(()=>{
-                            cards[i].style.backgroundColor = 'rgb(250, 32, 93)';
-                            cards[j].style.backgroundColor = 'rgb(250, 32, 93)';
+                            cards[tempI].style.backgroundColor = 'rgb(250, 32, 93)';
+                            cards[tempJ].style.backgroundColor = 'rgb(250, 32, 93)';
                         },Math.floor(delay/2))
                     },delay*ctr);
 
@@ -353,6 +355,12 @@ window.addEventListener('DOMContentLoaded',()=>{
             
         }
         quickSort(arr,0,arr.length-1);
+        ++ctr;
+        setTimeout(()=>{
+            for(let i=0;i<arr.length;++i){
+                cards[i].style.backgroundColor = 'green';
+            }
+        },delay*ctr)
         console.log(arr);
     })
 
