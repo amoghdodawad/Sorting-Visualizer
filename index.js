@@ -64,6 +64,7 @@ window.addEventListener('DOMContentLoaded',()=>{
         heapSort.disabled = true;
         delayHandler.disabled = true;
         arraySizeHandler.disabled = true;
+        generateNewArray.disabled = true;
     }
 
     function enableInput(){
@@ -75,6 +76,7 @@ window.addEventListener('DOMContentLoaded',()=>{
         heapSort.disabled = false;
         delayHandler.disabled = false;
         arraySizeHandler.disabled = false;
+        generateNewArray.disabled = false;
     }
 
     function changeAllCardsToRed(){
