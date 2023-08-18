@@ -1,5 +1,4 @@
 window.addEventListener('DOMContentLoaded',()=>{
-    console.log('Loaded');
     let arr = Array(60).fill().map(()=> Math.ceil(20*Math.random()));
     console.log(arr);
     
@@ -23,7 +22,6 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     let delay = 50;
 
-    
 
     const root = document.getElementById('root');
     const bubbleSort = document.getElementById('bubble-sort');
@@ -48,12 +46,15 @@ window.addEventListener('DOMContentLoaded',()=>{
         arraySizeDisplayer.innerHTML = arraySizeHandler.max;
     }
 
-    for(let i=0;i < arr.length; ++i){
-        const div = document.createElement('div');
-        div.classList.add('card')
-        div.style.height = arr[i]+'rem';
-        root.appendChild(div);
+    function generateCards(length){
+        for(let i=0;i < length; ++i){
+            const div = document.createElement('div');
+            div.classList.add('card')
+            div.style.height = arr[i]+'rem';
+            root.appendChild(div);
+        }
     }
+    generateCards(arr.length);
 
     function disableInput(){
         bubbleSort.disabled = true;
@@ -97,24 +98,13 @@ window.addEventListener('DOMContentLoaded',()=>{
         size = arr.length-1;
         root.innerHTML = '';
         
-        for(let i=0;i < arr.length; ++i){
-            const div = document.createElement('div');
-            div.classList.add('card')
-            div.style.height = arr[i]+'rem';
-            root.appendChild(div);
-        }
+        generateCards(arr.length);
     })
 
     generateNewArray.addEventListener('click',()=>{
         arr = Array(arr.length).fill().map(()=> (Math.ceil(20*Math.random())));
         root.innerHTML = '';
-        
-        for(let i=0;i < arr.length; ++i){
-            const div = document.createElement('div');
-            div.classList.add('card')
-            div.style.height = arr[i]+'rem';
-            root.appendChild(div);
-        }
+        generateCards(arr.length);
     })
 
     /*

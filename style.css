@@ -19,6 +19,7 @@ body {
     justify-content: center;
     align-items: end;
     margin: 1rem;
+    min-height: 21rem;
 }
 
 #delay-container {
