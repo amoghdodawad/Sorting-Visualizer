@@ -421,7 +421,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                             cards[tempJ].style.height = iHeight+'rem';
                             cards[tempI].style.backgroundColor = 'blue';
                             cards[tempJ].style.backgroundColor = 'blue';
-                            return sleep(Math.floor(sleep/2));
+                            return sleep(Math.floor(delay/2));
                         })
                         .then(()=>{
                             cards[tempI].style.backgroundColor = 'rgb(250, 32, 93)';
@@ -444,6 +444,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                     cards[high].style.height = plusOneHeight+'rem';
                     cards[i+1].style.backgroundColor = 'blue';
                     cards[high].style.backgroundColor = 'blue';
+                    return sleep(Math.floor(delay/2));
                 })
                 .then(()=>{
                     cards[i+1].style.backgroundColor = 'rgb(250, 32, 93)';
