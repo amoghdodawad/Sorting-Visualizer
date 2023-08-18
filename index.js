@@ -403,7 +403,6 @@ window.addEventListener('DOMContentLoaded',()=>{
         console.log(arr);
     })
 
-
     quickSort.addEventListener('click',()=>{
         ctr = 0;
         level = 0;
