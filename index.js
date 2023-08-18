@@ -85,6 +85,11 @@ window.addEventListener('DOMContentLoaded',()=>{
             cards[i].style.backgroundColor = 'rgb(250, 32, 93)';
         }
     }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
     
     delayHandler.addEventListener('input',(event)=>{
         delay = parseInt(event.target.value);
@@ -117,8 +122,10 @@ window.addEventListener('DOMContentLoaded',()=>{
             - Heap sort
     */
 
+    
     bubbleSort.addEventListener('click',()=>{
         ctr = 0;
+        size = arr.length-1;
         disableInput();
         changeAllCardsToRed();
         for(let i=0;i<arr.length-1;++i){
@@ -129,20 +136,15 @@ window.addEventListener('DOMContentLoaded',()=>{
                     let x = j;
                     ++flag;
                     ++ctr;
-                    setTimeout(()=>{
-                        // Setting the colour to blue and swapping 2 DOM elements
-                        cards[j].style.backgroundColor = cards[j+1].style.backgroundColor = 'rgb(32, 72, 250)';
-                        cards[j].before(cards[j+1]);
-
-                        setTimeout(()=>{
-                            // Coloring back the DOM elements to their original colour(red)
+                    sleep(delay*ctr)
+                        .then(()=>{
+                            // Setting the colour to blue and swapping 2 DOM elements
+                            cards[j].style.backgroundColor = cards[j+1].style.backgroundColor = 'rgb(32, 72, 250)';
+                            cards[j].before(cards[j+1]);
+                            return sleep(Math.floor(delay/2));
+                        })
+                        .then(()=>{
                             cards[j].style.backgroundColor = cards[j+1].style.backgroundColor = 'rgb(250, 32, 93)';
-
-                            // Coloring the most recent sorted element to green
-                            if(j == arr.length-i-2){
-                                cards[size].style.backgroundColor = 'green'
-                                --size;
-                            }
 
                             // Colouring all the sorted elements to green.
                             // This is kind of a patch code because above one has
@@ -162,9 +164,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                                     cards[x].style.backgroundColor = 'green';
                                 }
                             }
-                        },Math.floor(delay/2))
-                    },ctr*delay);
-
+                        })
                     let t = arr[j];
                     arr[j] = arr[j+1];
                     arr[j+1] = t;
@@ -175,13 +175,13 @@ window.addEventListener('DOMContentLoaded',()=>{
             }
         }
         ++ctr;
-
-        setTimeout(()=>{
-            for(let i=0;i<cards.length;++i){
-                cards[i].style.backgroundColor = 'green';
-            }
-            enableInput();
-        },delay*ctr)
+        sleep(delay*ctr)
+            .then(()=>{
+                for(let i=0;i<cards.length;++i){
+                    cards[i].style.backgroundColor = 'green';
+                }
+                enableInput();
+            })
 
         console.log(arr);
     });
@@ -208,17 +208,18 @@ window.addEventListener('DOMContentLoaded',()=>{
                     const iHeight = arr[i];
                     const minHeight = arr[minIndex];
 
-                    setTimeout(()=>{
-                        // Change the colour to blue;
-                        cards[minIndex].style.backgroundColor = 'blue';
-                        cards[i].style.backgroundColor = 'blue';
+                    sleep(delay*ctr)
+                        .then(()=>{
+                            // Change the colour to blue;
+                            cards[minIndex].style.backgroundColor = 'blue';
+                            cards[i].style.backgroundColor = 'blue';
 
-                        // Swap their heights
-                        cards[minIndex].style.height = iHeight+'rem';
-                        cards[i].style.height = minHeight+'rem';
-
-
-                        setTimeout(()=>{
+                            // Swap their heights
+                            cards[minIndex].style.height = iHeight+'rem';
+                            cards[i].style.height = minHeight+'rem';
+                            return sleep(Math.floor(delay/2));
+                        })
+                        .then(()=>{
                             // Change the colour back to green
                             cards[minIndex].style.backgroundColor = 'rgb(250, 32, 93)';
 
@@ -233,9 +234,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                                 }
                                 cards[x].style.backgroundColor = 'green';
                             }
-                        },Math.floor(delay/2))
-                    },delay*ctr)
-                    
+                        })
                     const temp = arr[i];
                     arr[i] = arr[minIndex];
                     arr[minIndex] = temp;
@@ -249,15 +248,16 @@ window.addEventListener('DOMContentLoaded',()=>{
 
         // Once the array is sorted(on the DOM), colour 
         // all the leftover DOM elements to green.
-        setTimeout(()=>{
-            for(let i=arr.length-1; i >= 0; --i){
-                if(cards[i].style.backgroundColor === 'green'){
-                    break;
+        sleep(delay*ctr)
+            .then(()=>{
+                for(let i=arr.length-1; i >= 0; --i){
+                    if(cards[i].style.backgroundColor === 'green'){
+                        break;
+                    }
+                    cards[i].style.backgroundColor = 'green';
                 }
-                cards[i].style.backgroundColor = 'green';
-            }
-            enableInput();
-        },delay*ctr)
+                enableInput();
+            })
     })
 
     insertionSort.addEventListener('click',()=>{
@@ -279,25 +279,27 @@ window.addEventListener('DOMContentLoaded',()=>{
                     const tempJ = j
                     const jHeight = arr[tempJ];
 
-                    setTimeout(()=>{
-                        // Change the colour and update the DOM.
-                        cards[tempJ+1].style.backgroundColor = 'blue';
-                        cards[tempJ+1].style.height = jHeight+'rem';
-
-                        setTimeout(()=>{
+                    sleep(delay*ctr)
+                        .then(()=>{
+                            // Change the colour and update the DOM.
+                            cards[tempJ+1].style.backgroundColor = 'blue';
+                            cards[tempJ+1].style.height = jHeight+'rem';
+                            return sleep(Math.floor(delay/2));
+                        })
+                        .then(()=>{
                             // Re-update the colour back to red.
                             cards[tempJ+1].style.backgroundColor = 'rgb(250, 32, 93)';
-                        },Math.floor(delay/2))
-                    },delay*ctr)
+                        })
 
                     arr[j+1] = arr[j];
                     j = j-1;
                 }
 
                 ++ctr;
-                setTimeout(()=>{
-                    cards[j+1].style.height = key+'rem';
-                },delay*ctr);
+                sleep(delay*ctr)
+                    .then(()=>{
+                        cards[j+1].style.height = key+'rem';
+                    })
 
                 arr[j+1] = key;
             }
@@ -307,12 +309,13 @@ window.addEventListener('DOMContentLoaded',()=>{
 
         // Colour all elements to green once
         // the DOM updation is over.
-        setTimeout(()=>{
-            for(let i=0;i<arr.length;++i){
-                cards[i].style.backgroundColor = 'green';
-            }
-            enableInput();
-        },delay*ctr)
+        sleep(delay*ctr)
+            .then(()=>{
+                for(let i=0;i<arr.length;++i){
+                    cards[i].style.backgroundColor = 'green';
+                }
+                enableInput();
+            })
         console.log(arr);
     })
     
@@ -363,13 +366,12 @@ window.addEventListener('DOMContentLoaded',()=>{
                 const col = level;
 
                 ++ctr;
-                setTimeout(()=>{
-                    // Dynamically colour the sorted elements to a different
-                    // green shade based on current depth of the recursion.
-                    cards[x].style.backgroundColor = `rgb(0,${100+col*20},0)`;
-                    cards[x].style.height = height+'rem';
-                    cards[last].style.backgroundColor = 'blue';
-                },delay*ctr)
+                sleep(delay*ctr)
+                    .then(()=>{
+                        cards[x].style.backgroundColor = `rgb(0,${100+col*20},0)`;
+                        cards[x].style.height = height+'rem';
+                        cards[last].style.backgroundColor = 'blue';
+                    })
             }
         }
     
@@ -383,11 +385,11 @@ window.addEventListener('DOMContentLoaded',()=>{
                 merge_Arrays(arr,left,middle,right);
                 if(level === 0){
                     ++ctr;
-                    setTimeout(()=>{
-                        // Colour the last element to green and enable the input
-                        cards[cards.length-1].style.backgroundColor = `rgb(0,100,0)`;
-                        enableInput();
-                    },delay*ctr);
+                    sleep(delay*ctr)
+                        .then(()=>{
+                            cards[cards.length-1].style.backgroundColor = `rgb(0,100,0)`;
+                            enableInput();
+                        })
                 }
             }
         }
@@ -411,17 +413,20 @@ window.addEventListener('DOMContentLoaded',()=>{
                     const jHeight = arr[j];
                     const tempI = i;
                     const tempJ = j;
-                    setTimeout(()=>{
-                        // Updating the DOM
-                        cards[tempI].style.height = jHeight+'rem';
-                        cards[tempJ].style.height = iHeight+'rem';
-                        cards[tempI].style.backgroundColor = 'blue';
-                        cards[tempJ].style.backgroundColor = 'blue';
-                        setTimeout(()=>{
+
+                    sleep(delay*ctr)
+                        .then(()=>{
+                            // Updating the DOM
+                            cards[tempI].style.height = jHeight+'rem';
+                            cards[tempJ].style.height = iHeight+'rem';
+                            cards[tempI].style.backgroundColor = 'blue';
+                            cards[tempJ].style.backgroundColor = 'blue';
+                            return sleep(Math.floor(sleep/2));
+                        })
+                        .then(()=>{
                             cards[tempI].style.backgroundColor = 'rgb(250, 32, 93)';
                             cards[tempJ].style.backgroundColor = 'rgb(250, 32, 93)';
-                        },Math.floor(delay/2))
-                    },delay*ctr);
+                        })
 
                     const t = arr[i];
                     arr[i] = arr[j];
@@ -433,16 +438,17 @@ window.addEventListener('DOMContentLoaded',()=>{
             const plusOneHeight = arr[i+1];
             const highHeight = arr[high];
             ++ctr;
-            setTimeout(()=>{
-                cards[i+1].style.height = highHeight+'rem';
-                cards[high].style.height = plusOneHeight+'rem';
-                cards[i+1].style.backgroundColor = 'blue';
-                cards[high].style.backgroundColor = 'blue';
-                setTimeout(()=>{
+            sleep(delay*ctr)
+                .then(()=>{
+                    cards[i+1].style.height = highHeight+'rem';
+                    cards[high].style.height = plusOneHeight+'rem';
+                    cards[i+1].style.backgroundColor = 'blue';
+                    cards[high].style.backgroundColor = 'blue';
+                })
+                .then(()=>{
                     cards[i+1].style.backgroundColor = 'rgb(250, 32, 93)';
                     cards[high].style.backgroundColor = 'rgb(250, 32, 93)';
-                },Math.floor(delay/2))
-            },delay*ctr);
+                })
             
             const t = arr[i+1];
             arr[i+1] = arr[high];
@@ -458,37 +464,41 @@ window.addEventListener('DOMContentLoaded',()=>{
 
                 ++ctr;
                 const k = level;
-                setTimeout(()=>{
-                    // Dynamically changing the colour of the DOM elements
-                    // based on the depth of the partition.
-                    cards[partitionIndex].style.backgroundColor = `rgb(0,${70+k*20},0)`;
-                },delay*ctr)
+                sleep(delay*ctr)
+                    .then(()=>{
+                        // Dynamically changing the colour of the DOM elements
+                        // based on the depth of the partition.
+                        cards[partitionIndex].style.backgroundColor = `rgb(0,${70+k*20},0)`;
+                    })
 
                 quickSort(arr,low,partitionIndex-1);
                 quickSort(arr,partitionIndex+1,high);
 
                 ++ctr;
-                setTimeout(()=>{
-                    cards[partitionIndex].style.backgroundColor = 'rgb(250, 32, 93)';
-                },delay*ctr);
+                sleep(delay*ctr)
+                    .then(()=>{
+                        cards[partitionIndex].style.backgroundColor = 'rgb(250, 32, 93)';
+                    })
 
                 --level;
                 if(level === 0){
                     ++ctr;
-                    setTimeout(()=>{
-                        enableInput();
-                    },delay*ctr)
+                    sleep(delay*ctr)
+                        .then(()=>{
+                            enableInput();
+                        })
                 }
             }
             
         }
         quickSort(arr,0,arr.length-1);
         ++ctr;
-        setTimeout(()=>{
-            for(let i=0;i<arr.length;++i){
-                cards[i].style.backgroundColor = 'green';
-            }
-        },delay*ctr)
+        sleep(delay*ctr)
+            .then(()=>{
+                for(let i=0;i<arr.length;++i){
+                    cards[i].style.backgroundColor = 'green';
+                }
+            })
         console.log(arr);
     })
 
@@ -517,17 +527,18 @@ window.addEventListener('DOMContentLoaded',()=>{
                 const iHeight = arr[i];
                 ++ctr;
 
-                setTimeout(()=>{
-                    cards[largest].style.height = iHeight+'rem';
-                    cards[i].style.height = largestHeight+'rem';
-                    cards[i].style.backgroundColor = 'blue';
-                    cards[largest].style.backgroundColor = 'blue';
-
-                    setTimeout(()=>{
+                sleep(delay*ctr)
+                    .then(()=>{
+                        cards[largest].style.height = iHeight+'rem';
+                        cards[i].style.height = largestHeight+'rem';
+                        cards[i].style.backgroundColor = 'blue';
+                        cards[largest].style.backgroundColor = 'blue';
+                        return sleep(Math.floor(delay/2));
+                    })
+                    .then(()=>{
                         cards[i].style.backgroundColor = 'rgb(250, 32, 93)';
                         cards[largest].style.backgroundColor = 'rgb(250, 32, 93)';
-                    },Math.floor(delay/2))
-                },delay*ctr)
+                    })
 
                 const temp = arr[i];
                 arr[i] = arr[largest];
@@ -544,17 +555,19 @@ window.addEventListener('DOMContentLoaded',()=>{
                 const zeroHeight = arr[0];
                 const iHeight = arr[i];
                 ++ctr;
-                setTimeout(()=>{
-                    // Update the DOM.
-                    cards[0].style.height = iHeight+'rem';
-                    cards[i].style.height = zeroHeight+'rem';
-                    cards[0].style.backgroundColor = 'blue';
-                    cards[i].style.backgroundColor = 'blue';
-                    setTimeout(()=>{
+                sleep(delay*ctr)
+                    .then(()=>{
+                        // Update the DOM.
+                        cards[0].style.height = iHeight+'rem';
+                        cards[i].style.height = zeroHeight+'rem';
+                        cards[0].style.backgroundColor = 'blue';
+                        cards[i].style.backgroundColor = 'blue';
+                        return sleep(Math.floor(delay/2));
+                    })
+                    .then(()=>{
                         cards[0].style.backgroundColor = 'rgb(250, 32, 93)';
                         cards[i].style.backgroundColor = 'green';
-                    },Math.floor(delay/2))
-                },delay*ctr)
+                    })
 
                 const temp = arr[0];
                 arr[0] = arr[i]; 
@@ -563,9 +576,10 @@ window.addEventListener('DOMContentLoaded',()=>{
                 heapify(arr, i, 0);
                 if(i === 0){
                     ++ctr;
-                    setTimeout(()=>{
-                        enableInput();
-                    },delay*ctr)
+                    sleep(delay*ctr)
+                        .then(()=>{
+                            enableInput();
+                        })
                 }
             }
         }
