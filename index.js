@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded',()=>{
     console.log('Loaded');
-    const arr = Array(60).fill().map(()=> Math.ceil(20*Math.random()));
+    let arr = Array(60).fill().map(()=> Math.ceil(20*Math.random()));
     console.log(arr);
     
     // This is used to determine if all the swaps
@@ -23,21 +23,9 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     let delay = 50;
 
-    const screen = window.screen.width;
-    if(screen < 750){
-        arr.splice(0,30);
-        size = arr.length-1;
-    }
+    
 
     const root = document.getElementById('root');
-    for(let i=0;i < arr.length; ++i){
-        const div = document.createElement('div');
-        div.classList.add('card')
-        div.style.height = arr[i]+'rem';
-        root.appendChild(div);
-    }
-
-    let cards = document.getElementsByClassName('card');
     const bubbleSort = document.getElementById('bubble-sort');
     const selectionSort = document.getElementById('selection-sort');
     const insertionSort = document.getElementById('insertion-sort');
@@ -45,6 +33,27 @@ window.addEventListener('DOMContentLoaded',()=>{
     const quickSort = document.getElementById('quick-sort');
     const heapSort = document.getElementById('heap-sort');
     const delayHandler = document.getElementById('delay-handler');
+    const delayDisplayer = document.getElementById('delay-displayer');
+    const arraySizeHandler = document.getElementById('array-size-handler');
+    const arraySizeDisplayer = document.getElementById('array-size-displayer');
+    const generateNewArray = document.getElementById('generate-new-array');
+    let cards = document.getElementsByClassName('card');
+
+    const screen = window.screen.width;
+    if(screen < 750){
+        arr.splice(0,30);
+        size = arr.length-1;
+        arraySizeHandler.max = 30;
+        arraySizeHandler.value = 30;
+        arraySizeDisplayer.innerHTML = arraySizeHandler.max;
+    }
+
+    for(let i=0;i < arr.length; ++i){
+        const div = document.createElement('div');
+        div.classList.add('card')
+        div.style.height = arr[i]+'rem';
+        root.appendChild(div);
+    }
 
     function disableInput(){
         bubbleSort.disabled = true;
@@ -54,6 +63,7 @@ window.addEventListener('DOMContentLoaded',()=>{
         quickSort.disabled = true;
         heapSort.disabled = true;
         delayHandler.disabled = true;
+        arraySizeHandler.disabled = true;
     }
 
     function enableInput(){
@@ -64,6 +74,7 @@ window.addEventListener('DOMContentLoaded',()=>{
         quickSort.disabled = false;
         heapSort.disabled = false;
         delayHandler.disabled = false;
+        arraySizeHandler.disabled = false;
     }
 
     function changeAllCardsToRed(){
@@ -72,8 +83,36 @@ window.addEventListener('DOMContentLoaded',()=>{
         }
     }
     
-    delayHandler.addEventListener('change',(event)=>{
-        delay = event.target.value;
+    delayHandler.addEventListener('input',(event)=>{
+        delay = parseInt(event.target.value);
+        delayDisplayer.innerHTML = delay + ' ms';
+    })
+
+    arraySizeHandler.addEventListener('input',(event)=>{
+        arraySizeDisplayer.innerHTML = event.target.value;
+        arr = Array(parseInt(event.target.value)).fill().map(()=> (Math.ceil(20*Math.random())));
+
+        size = arr.length-1;
+        root.innerHTML = '';
+        
+        for(let i=0;i < arr.length; ++i){
+            const div = document.createElement('div');
+            div.classList.add('card')
+            div.style.height = arr[i]+'rem';
+            root.appendChild(div);
+        }
+    })
+
+    generateNewArray.addEventListener('click',()=>{
+        arr = Array(arr.length).fill().map(()=> (Math.ceil(20*Math.random())));
+        root.innerHTML = '';
+        
+        for(let i=0;i < arr.length; ++i){
+            const div = document.createElement('div');
+            div.classList.add('card')
+            div.style.height = arr[i]+'rem';
+            root.appendChild(div);
+        }
     })
 
     /*

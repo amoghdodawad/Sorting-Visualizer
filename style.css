@@ -23,12 +23,15 @@ body {
 
 #delay-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    width: 100%;
+    width: 99.8%;
     box-shadow: 2px 2px rgba(0,0,0,0.05);
     background-color: rgb(255, 230, 207);
+    border: 0.1rem solid rgb(250, 32, 93);
+    border-bottom: 0.05rem solid rgb(250, 32, 93);
+    border-radius: 0.5rem;
 }
 
 #delay-message{
@@ -36,10 +39,61 @@ body {
     text-align: center;
     margin: 1rem;
     background-color: rgb(255, 230, 207);
+    width: 20vw;
 }
 
-#delay-handler {
-    width: 30vw;
+#delay-displayer{
+    background-color: rgb(255, 230, 207);
+    text-align: center;
+    font-weight: bold;
+    margin: 1rem;
+    width: 20vw;
+}
+
+
+
+#array-size-container{
+    border: 0.1rem solid rgb(250, 32, 93);
+    border-top: 0.05rem solid rgb(250, 32, 93);
+    border-radius: 0.5rem;
+    display: flex;
+    background-color: rgb(255, 230, 207);
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 99.8%;
+}
+
+#array-message{
+    background-color: rgb(255, 230, 207);
+    text-align: center;
+    font-weight: bold;
+    margin: 1rem;
+    width: 20vw;
+}
+
+#array-size-displayer{
+    background-color: rgb(255, 230, 207);
+    font-weight: bold;
+    text-align: center;
+    margin: 1rem;
+    width: 20vw;
+}
+
+#generate-new-array {
+    font-weight: bold;
+    background-color: rgb(255, 230, 207);
+    padding: 0.4rem;
+    margin: 1rem;
+    box-shadow: 0.1rem 0.1rem rgba(0,0,0,0.05);
+    border-radius: 0.5rem;
+    border: none;
+}
+
+#generate-new-array:hover{
+    font-weight: bolder;
+    cursor: pointer;
+    background-color: rgb(249, 227, 199);
 }
 
 @media screen and (min-width : 801px) {
@@ -53,6 +107,14 @@ body {
         justify-content: center;
         align-items: end;
     }
+
+    #delay-handler {
+        width: 50vw;
+    }
+
+    #array-size-handler{
+        width: 50vw;
+    }
 }
 
 @media screen and (max-width : 800px) {
@@ -65,6 +127,14 @@ body {
         display: flex;
         justify-content: center;
         align-items: end;
+    }
+
+    #delay-handler {
+        width: 30vw;
+    }
+
+    #array-size-handler{
+        width: 30vw;
     }
 }
 
