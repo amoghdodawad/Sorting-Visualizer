@@ -3,10 +3,6 @@ window.addEventListener('DOMContentLoaded',()=>{
     let arr = Array(60).fill().map(()=> Math.ceil(20*Math.random()));
     console.log(arr);
 
-    // This is used to break the loop if nothing is swapped in
-    // case of bubble sort.
-    let hasSwapped = true;
-
     const root = document.getElementById('root');
     const bubbleSort = document.getElementById('bubble-sort');
     const selectionSort = document.getElementById('selection-sort');
@@ -105,6 +101,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     */
 
     bubbleSort.addEventListener('click',async ()=>{
+        let hasSwapped = false;
         disableInput();
         changeAllCardsToRed();
         for(let i=0;i<arr.length-1;++i){
@@ -134,7 +131,6 @@ window.addEventListener('DOMContentLoaded',()=>{
                 break;
             }
         }
-        await sleep(delay);
         for(let i=0;i<cards.length;++i){
             cards[i].style.backgroundColor = 'green';
         }
@@ -189,12 +185,10 @@ window.addEventListener('DOMContentLoaded',()=>{
             }
         }
         await selectionSort(arr,arr.length);
-
         console.log(arr);
 
         // Once the array is sorted(on the DOM), colour 
         // all the leftover DOM elements to green.
-        await sleep(delay);
         for(let i=arr.length-1; i >= 0; --i){
             if(cards[i].style.backgroundColor === 'green'){
                 break;
@@ -346,26 +340,21 @@ window.addEventListener('DOMContentLoaded',()=>{
             if(low < high){
                 ++recursionLevel;
                 const partitionIndex = await partition(arr,low,high);
-
-                await sleep(delay);
                 cards[partitionIndex].style.backgroundColor = `rgb(0,${70+recursionLevel*20},0)`;
 
                 await quickSort(arr,low,partitionIndex-1);
                 await quickSort(arr,partitionIndex+1,high);
 
-                await sleep(delay);
                 cards[partitionIndex].style.backgroundColor = 'rgb(250, 32, 93)';
                 --recursionLevel;
             }  
         }
         await quickSort(arr,0,arr.length-1);
         
-        await sleep(delay);
         for(let i=0;i<arr.length;++i){
             cards[i].style.backgroundColor = 'green';
         }
         enableInput();
-
         console.log(arr);
     })
 
