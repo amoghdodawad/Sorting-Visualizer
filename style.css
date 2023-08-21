@@ -168,3 +168,25 @@ body {
     font-weight: bolder;
     cursor: pointer;
 }
+
+#additional-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#pause-button {
+    background-color: rgb(255, 230, 207);
+    border: none;
+    box-shadow: 0.1rem 0.1rem rgba(0,0,0,0.05);
+    padding: 0.35rem;
+    min-width: 4rem;
+    border-radius: 0.3rem;
+    font-weight: bold;
+}
+
+#pause-button:hover{
+    background-color: rgb(249, 227, 199);
+    font-weight: bolder;
+    cursor: pointer;
+}

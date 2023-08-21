@@ -15,7 +15,9 @@ window.addEventListener('DOMContentLoaded',()=>{
     const arraySizeHandler = document.getElementById('array-size-handler');
     const arraySizeDisplayer = document.getElementById('array-size-displayer');
     const generateNewArray = document.getElementById('generate-new-array');
+    const pauseButton = document.getElementById('pause-button');
     let cards = document.getElementsByClassName('card');
+    let isPaused = false;
 
     const screen = window.screen.width;
     if(screen < 750){
@@ -90,6 +92,11 @@ window.addEventListener('DOMContentLoaded',()=>{
         generateCards(arr.length);
     })
 
+    pauseButton.addEventListener('click',async ()=>{
+        isPaused = !isPaused;
+        pauseButton.value = isPaused ? 'Play' : 'Pause';
+    })
+
     /*
         The sorting algorithms are defined in the following order
             - Bubble sort
@@ -108,14 +115,20 @@ window.addEventListener('DOMContentLoaded',()=>{
             hasSwapped = false;
 
             for(let j=0;j<arr.length-i-1;++j){
+                // while(isPaused){
+                //     await sleep(0);
+                // }
                 if(arr[j] > arr[j+1]){
 
                     hasSwapped = true;
-
+                    
                     await sleep(delay);
                     cards[j].style.backgroundColor = cards[j+1].style.backgroundColor = 'rgb(32, 72, 250)';
                     cards[j].before(cards[j+1]);
 
+                    while(isPaused){
+                        await sleep(0);
+                    }
                     await sleep(Math.floor(delay/2));
                     cards[j].style.backgroundColor = cards[j+1].style.backgroundColor = 'rgb(250, 32, 93)';
                     for(let x=0;x<i;++x){
@@ -151,6 +164,9 @@ window.addEventListener('DOMContentLoaded',()=>{
                     }
                 }
                 if(minIndex != i){
+                    while(isPaused){
+                        await sleep(0);
+                    }
                     await sleep(delay);
 
                     // Change the colour to blue;
@@ -161,6 +177,9 @@ window.addEventListener('DOMContentLoaded',()=>{
                     cards[minIndex].style.height = arr[i]+'rem';
                     cards[i].style.height = arr[minIndex]+'rem';
 
+                    while(isPaused){
+                        await sleep(0);
+                    }
                     await sleep(Math.floor(delay/2));
 
                     // Change the colour back to red
@@ -213,6 +232,9 @@ window.addEventListener('DOMContentLoaded',()=>{
                     cards[j+1].style.backgroundColor = 'blue';
                     cards[j+1].style.height = arr[j]+'rem';
 
+                    while(isPaused){
+                        await sleep(0);
+                    }
                     await sleep(Math.floor(delay/2));
                     cards[j+1].style.backgroundColor = 'green';
 
@@ -268,6 +290,9 @@ window.addEventListener('DOMContentLoaded',()=>{
                 ++k;
             }
             for(let i=left;i<k;++i){
+                while(isPaused){
+                    await sleep(0);
+                }
                 await sleep(delay);
                 cards[i].style.backgroundColor = `rgb(0,${100+recursionLevel*20},0)`;
                 cards[i].style.height = arr[i]+'rem';
@@ -302,13 +327,15 @@ window.addEventListener('DOMContentLoaded',()=>{
                 if(arr[j] < pivot){
                     ++i;
 
-                    await sleep(delay);
                     cards[i].style.height = arr[j]+'rem';
                     cards[j].style.height = arr[i]+'rem';
                     cards[i].style.backgroundColor = 'blue';
                     cards[j].style.backgroundColor = 'blue';
 
-                    await sleep(Math.floor(delay/2));
+                    while(isPaused){
+                        await sleep(0);
+                    }
+                    await sleep(delay);
                     cards[i].style.backgroundColor = 'rgb(250, 32, 93)';
                     cards[j].style.backgroundColor = 'rgb(250, 32, 93)';
 
@@ -319,13 +346,15 @@ window.addEventListener('DOMContentLoaded',()=>{
                 }
             }
 
-            await sleep(delay);
             cards[i+1].style.height = arr[high]+'rem';
             cards[high].style.height = arr[i+1]+'rem';
             cards[i+1].style.backgroundColor = 'blue';
             cards[high].style.backgroundColor = 'blue';
 
-            await sleep(Math.floor(delay/2));
+            while(isPaused){
+                await sleep(0);
+            }
+            await sleep(delay);
             cards[i+1].style.backgroundColor = 'rgb(250, 32, 93)';
             cards[high].style.backgroundColor = 'rgb(250, 32, 93)';
             
@@ -382,6 +411,9 @@ window.addEventListener('DOMContentLoaded',()=>{
                 cards[i].style.backgroundColor = 'blue';
                 cards[largest].style.backgroundColor = 'blue';
 
+                while(isPaused){
+                    await sleep(0);
+                }
                 await(sleep(Math.floor(delay/2)));
                 cards[i].style.backgroundColor = 'rgb(250, 32, 93)';
                 cards[largest].style.backgroundColor = 'rgb(250, 32, 93)';
@@ -404,6 +436,9 @@ window.addEventListener('DOMContentLoaded',()=>{
                 cards[0].style.backgroundColor = 'blue';
                 cards[i].style.backgroundColor = 'blue';
 
+                while(isPaused){
+                    await sleep(0);
+                }
                 await sleep(Math.floor(delay/2));
                 cards[0].style.backgroundColor = 'rgb(250, 32, 93)';
                 cards[i].style.backgroundColor = 'green';
